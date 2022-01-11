@@ -65,6 +65,7 @@ func genericAPIcall(w http.ResponseWriter, r *http.Request){
     var response *http.Response
     var reponseErr error
     // Distinguish if method is GET or POST or any other call return 405 error code
+    fmt.Println(r.Method)
     if r.Method == "GET" {
         response, reponseErr = http.Get("https://api.weather.gov/alerts/active?area=NY")
     } else if r.Method == "POST"{
@@ -232,9 +233,9 @@ func handleRequests() {
     myRouter := mux.NewRouter().StrictSlash(true)
     myRouter.HandleFunc("/", homePage)
     myRouter.HandleFunc("/api/weather",genericAPIcall).Methods("POST")
-    myRouter.HandleFunc("/api/weather",genericAPIcall)
+    myRouter.HandleFunc("/api/weather",genericAPIcall).Methods("GET")
     
-    log.Fatal(http.ListenAndServe(":8080", myRouter))
+    log.Fatal(http.ListenAndServe(":10000", myRouter))
 }
 
 func main() {

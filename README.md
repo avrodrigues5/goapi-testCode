@@ -2,7 +2,29 @@
 
 Simple API application to get weather data
 
+## Dockerizing the container
+
+Create a docker image using DockerFile in . folder
+
+```
+docker build -t go_api_image .
+```
+ensure your docker image is listed using
+
+```
+docker image ls
+```
+
+Create a container using go_api_image with following command
+
+```
+docker run -d -p 8080:8080 go_api_image
+```
+
+
 ## Getting started
+
+For local run without Docker
 
 Run the application with 
 
@@ -10,12 +32,14 @@ Run the application with
  go run main.go
 ```
 
+or Run it with docker container if you see the docker process for go_api_image running
+
 ### Test case 1
 
 Open PostMan or execute GET call
 
 ```
-curl --location --request GET 'http://localhost:10000/api/weather'
+curl --location --request GET 'http://localhost:8080/api/weather'
 ```
 
 You will get all the alerts to defaulted NY state in GET call
@@ -24,7 +48,7 @@ You will get all the alerts to defaulted NY state in GET call
 Open PostMan or execute POST call
 
 ```
-curl --location --request POST 'http://localhost:10000/api/weather?state=CA'
+curl --location --request POST 'http://localhost:8080/api/weather?state=CA'
 ```
 You will get all the alert highlight for state of California
 
@@ -38,7 +62,7 @@ You will get all the alert highlight for state of California
 Open PostMan or execute POST call
 
 ```
-curl --location --request POST 'http://localhost:10000/api/weather?state=CAA'
+curl --location --request POST 'http://localhost:8080/api/weather?state=CAA'
 ```
 
 You will get following response 
@@ -46,3 +70,4 @@ You will get following response
 ```
 Please enter valid two letter state abbreviation
 ```
+Also error code for bad request which is 400
